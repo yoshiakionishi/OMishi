@@ -1,11 +1,9 @@
 # OMishi
-OMishi Library for OpenMusic
-
 =======================================================================
 
     OMishi
     A library of Common Lisp functions
-    by Yoshiaki Onishi (https://www.yoshionishi.com)
+    by Yoshiaki Onishi <https://www.yoshionishi.com>
 
     (c) 2024 by Yoshiaki Onishi
 
