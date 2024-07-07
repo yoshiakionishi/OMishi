@@ -32,8 +32,13 @@
 
     Version 0.x = Pre-release Version (June 30 2024~)
 
+    Version 0.4: July 7 2024
+    Function added:
+        List Operations
+            - chord-rotate
+
     Version 0.3: July 6 2024
-    Added functions:
+    Functions added:
         Number Generators
             - dejong
             - dejong-svensson
@@ -41,7 +46,7 @@
 
 
     Version 0.2: July 2 2024
-    Added functions:
+    Functions added:
         Number Generators
             - euclid-rhythm-binary
         List Operations

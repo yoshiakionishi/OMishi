@@ -5,6 +5,8 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;===============================================
 ; OMishi Functions: List Operations
+; As of July 6 2024
+; - chord-rotate (new!)
 ; As of June 30 2024
 ; - fraction-maker
 ; - 0to-1
@@ -156,4 +158,121 @@ A number in a Level-2 list is turned into a series of 0. For example, a list ((4
     if (and (not (typep x 'list)) (> x 0))
         collect (cons 1 (loop for i from 1 to (- x 1) collect 0))
 ))
+)
+
+;===============================================
+
+(om::defmethod! chord-rotate ((list1 list) (approx number) (mode symbol) (octeq number))
+ :initvals '('(6000 6400 6700 7100) 2 'keepbassnote 0 )
+  :indoc '("chord (list of midicents)" "1/x tone approximation" "keep/take out the bass pedal note" "midicent multiple")
+  ; The optional menu (1 of 2) for whether or not to keep the persistent "pedal" at the end of the process
+  :menuins '((2 (("keep the bass note" 'keepbassnote ) ("take out the bass note" 'takeoutbassnote))))
+  :icon 5678645
+  :doc "Chord Rotate 
+
+(Yoshiaki Onishi, July 7, 2024)
+
+Input 1: list of midicents (a chord)
+Input 2: tone division (2 = halfstep; 4 = 1/4 step; 8 = 1/8 step)
+Input 3: Two modes: Keep or take out the bass note from the resultant chords in the chord-seq.
+Input 4: Midicent multiple value for the virtual pitch. By default, 0, an octave multiple (1200) of the lowest pitch just above the highest pitch of the chord is applied. You can change this value to other midicent values. For example, 1000 would find a virtual pitch closest to the highest pitch of the original chord at minor 7th starting from the lowest pitch.
+
+chord-rotate takes a chord, analyzes its interval structure (including the interval between the highest pitch plus a *virtual* pitch, an octave multiple of the lowest pitch just above the highest pitch of the input chord), derives all possible rotations of the interval structure, then applies them upon the lowest pitch of the original chord, deriving rotated chords. 
+
+You have the option to remove the lowest note (akin to pedal note) from the resultant chord-seq.
+
+It handles smaller tone divisions than a half step, as well, but you need to specify which tone division you are using via Inlet 2.
+
+This function was formerly named *perm-interval-2*, which created all the possible inversions of the original chord then transposed them down so that the lowest pitch of each chord is the same as that of the original chord. Though the procedure may be different, the result was identical. For chord-rotate, two additional functions were added. (1) Option to remove the lowest pitch which functions like a pedal tone. (2) Option to set the *virtual pitch* differently, where the multiple of midicent can be set to something other than an octave (1200).
+
+Click on the function and push t to see an example patch.
+
+For details, especially on *perm-interval-2*, please refer to: Onishi, Yoshiaki. *Between Imagination and Realization: Composers and Metaphysical Spaces.* D.M.A. Doctoral Dissertation, Columbia University, 2015. http://dx.doi.org/10.7916/D8CJ8CCG. Pages 167-169.
+"
+
+
+; The optional menu (1 of 2) for whether or not to keep the persistent "pedal" at the end of the process
+(if (eq mode 'keepbassnote)
+  (setq bnmode 0)
+  (setq bnmode 1)
+)
+
+; The optional menu (2 of 2) to determine the multiple of midicents at which the "virtual soprano voice" (i.e. copy of the bass note) is applied. If set to 0, it is at an octave (1200 midic).
+(if (eq octeq 0)
+    (setq   basemultiple 1200
+            multiplier 0)
+    (setq   basemultiple octeq
+            multiplier 0)
+)
+
+; Process 1. Input list is cleaned up with approx-m, as well as sorting from low to high
+(setq   list1 (sort (approx-m list1 approx) #'<)
+        testbassnote    (first list1)           ; this "testbassnote" will fluctuate according to the "basemultiple" notes.
+        testhighnote    (car (last list1))
+        originaltestbassnote testbassnote
+        basemultiplelist (loop for i in (arithm-ser 1 1000 1) collect (* basemultiple i))
+
+)
+
+(if (numberp (position  (- testhighnote testbassnote) basemultiplelist)) 
+; if it's the chord fits exactly the base multiple (ROUTINE BEGIN)
+(progn
+(setq   newlist  list1)
+
+(setq   difflist (x->dx newlist)
+        difflistrotate  (loop for i from 0 to (- (length difflist) 1) 
+                        collect (rotate difflist i)
+                        )
+        rotatedchords   (loop for i in difflistrotate
+                        collect (dx->x (nth 0 newlist) i)
+                        )
+)
+
+(if     (eq bnmode 1)
+        (setq rotatedchords (loop for i in rotatedchords
+                collect (cdr i))
+        )
+        (setq rotatedchords rotatedchords)
+))
+; if it's the chord fits exactly the base multiple(ROUTINE END)
+; if it does not (ROUTINE BEGIN)
+(progn
+        (loop   while (< basemultiple (- testhighnote testbassnote))
+        do  (setq testbassnote (+ originaltestbassnote (* basemultiple multiplier))
+                    multiplier (+ multiplier 1))  
+)
+
+(if     (= multiplier 0) 
+        (setq multiplier 1)
+)
+(setq   newhighpitch (+ originaltestbassnote (* basemultiple multiplier)))
+
+; Add the reference note at the top 
+
+
+(setq   newlist   (flat (cons list1 (list newhighpitch)))
+)
+
+(if (= (car (last newlist)) (nth (- (length newlist) 2) newlist)) ;if the last two items are identical...
+    (setq newlist (butlast newlist)) ; remove the last item (i.e. duplicate)
+    (setq newlist newlist)      ; otherwise, keep the list intact
+)
+
+(setq   difflist (x->dx newlist)
+        difflistrotate  (loop for i from 0 to (- (length difflist) 1) 
+                        collect (rotate difflist i)
+                        )
+        rotatedchords   (loop for i in difflistrotate
+                        collect (butlast (dx->x (nth 0 newlist) i))
+                        )
+)
+
+(if     (eq bnmode 1)
+        (setq rotatedchords (loop for i in rotatedchords
+                collect (cdr i))
+        )
+        (setq rotatedchords rotatedchords)
+))
+; if it does not (ROUTINE END)
+)
 )
