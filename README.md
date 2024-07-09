@@ -32,6 +32,11 @@
 
     Version 0.x = Pre-release Version (June 30 2024~)
 
+    Version 0.5.1: July 9 2024
+    Function corrected:
+        Number Generators
+            - zigzag-arithm-ser
+
     Version 0.5: July 8 2024
     Function added:
         List Operations:

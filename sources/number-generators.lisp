@@ -77,13 +77,28 @@ Building on the OM function 'arithm-ser,' This function creates an arithmetic se
 - Second inlet, taking a list of number, defines the length of each arithmetic sub-series.
 - Third inlet defines the amount of step within the sub-series, much like the third inlet of 'arithm-ser' function.
 - Fourth inlet defines the amount of step from the first number of one sub-series to that of the next."
-	(loop for x in listofstep 
-      for startnum from 0
-    collect (arithm-ser (+ startnumber (* startnum stepvalue-per-list)) 
-                        (+ (+ startnumber (* startnum stepvalue-per-list)) (* stepvalue-within-list (- x 1))) 
-                          stepvalue-within-list)
-
+;   For those interested, here was the code in place prior to Version 0.6. This did not allow negative integers/zero on the last two inlets because of the nature of arithm-ser function. 
+;   (loop   for x in listofstep 
+;           for startnum from 0
+;       collect (arithm-ser (+ startnumber (* startnum stepvalue-per-list)) 
+;                      (+ (+ startnumber (* startnum stepvalue-per-list)) (* stepvalue-within-list (- x 1))) 
+;                            stepvalue-within-list)
+;
+;   )
+  (if   (= stepvalue-within-list 0)
+        (loop for x in listofstep
+        collect (loop repeat x collect startnumber)
+        )
+  
+  (loop for x in listofstep ; 2 of (2 3 4 3 2)
+        for startnum from startnumber by stepvalue-per-list      
+        collect 
+                (loop for n from 0 to (- x 1) 
+                    collect (+ startnum (* n stepvalue-within-list))
+                )
   )
+  )
+  
 )
 
 ;===============================================
