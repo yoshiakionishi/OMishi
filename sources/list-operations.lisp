@@ -5,8 +5,15 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;===============================================
 ; OMishi Functions: List Operations
-; As of July 6 2024
-; - chord-rotate (new!)
+; As of July 8 2024
+; - listchomp
+; - bifurcate1
+; - bifurcate2
+; - converge1
+; - converge2
+; - zigzag-chordseqtrace
+; As of July 7 2024
+; - chord-rotate
 ; As of June 30 2024
 ; - fraction-maker
 ; - 0to-1
@@ -275,4 +282,286 @@ For details, especially on *perm-interval-2*, please refer to: Onishi, Yoshiaki.
 ))
 ; if it does not (ROUTINE END)
 )
+)
+
+
+;===============================================
+
+(om::defmethod! listchomp ((list1 list) (num1 number) (num2 number))
+ :initvals '('((1 2 3 4 5 6 7 8 9 10 ) 3 7) )
+  :indoc '("list" "starting index number" "ending index number")
+  :icon 5678645
+  :doc "listchomp 
+
+(Yoshiaki Onishi, July 8, 2024)
+
+This function trims a list from both ends using the index numbers. It acts like *subseq*, except the ending index number is included in the resultant list.
+
+Example: (listchomp '(1 2 3 4 5 6 7 8 9 10) 3 7) ==> (4 5 6 7 8)
+"
+(loop for x from 0 to (- (- num2 num1) 1) 
+    collect (nth x (nthcdr num1 list1)))
+
+)
+
+;===============================================
+
+(om::defmethod! bifurcate1 ((list1 list))
+ :initvals '('((1 2 3 4 5 6 7 8 9 10 )) )
+  :indoc '("list")
+  :icon 5678645
+  :doc "Bifurcate1 
+
+(Yoshiaki Onishi, July 8, 2024)
+
+Bifurcate1 takes a list and reorders its content by bifurcating it from the center.
+
+Example 1: (bifurcate1 '(1 2 3 4 5 6 7 8 9 10)) ==> (5 6 4 7 3 8 2 9 1 10)
+Example 2: (bifurcate1 '(1 2 3 4 5 6 7 8 9)) ==> (5 6 4 7 3 8 2 9 1)
+"
+(if (evenp (length list1))
+    (setq   listoperation       (group-list list1 (list (/ (length list1) 2)(/ (length list1) 2)) 'linear)
+            listoperationfirst  (loop for i in (reverse (first listoperation))
+                                    collect i
+                                )
+            listoperation       (list listoperationfirst (second listoperation))
+            newlist             (loop   for a in (first listoperation)
+                                        for b in (second listoperation)
+                                    nconcing (list a b)
+                                )
+    )
+    
+    (setq   listoperation       (group-list list1 (list (/ (- (length list1) 1) 2) 1 (/ (- (length list1) 1) 2)) 'linear)
+            listoperationfirst  (loop for i in (reverse (first listoperation))
+                                    collect i
+                                )
+            listoperationsecond  (second listoperation)
+            newlist             (nconc listoperationsecond 
+                                    (loop   for a in (third listoperation)
+                                        for b in listoperationfirst
+;                                       collect (cons a (cons b nil))
+                                        nconcing (list a b)
+                                    )
+                                )
+
+    )
+
+    
+)
+)
+
+;===============================================
+
+(om::defmethod! bifurcate2 ((list1 list))
+ :initvals '('((1 2 3 4 5 6 7 8 9 10 )) )
+  :indoc '("list")
+  :icon 5678645
+  :doc "Bifurcate2 
+
+(Yoshiaki Onishi, July 8, 2024)
+
+Bifurcate2 takes a list and reorders its content by bifurcating it from the center but in the manner inverse to *bifurcate1*.
+
+Example 1: (bifurcate2 '(1 2 3 4 5 6 7 8 9 10)) ==> (6 5 7 4 8 3 9 2 10 1)
+Example 2: (bifurcate2 '(1 2 3 4 5 6 7 8 9)) ==> (5 4 6 3 7 2 8 1 9)
+"
+(if (evenp (length list1))
+    (setq   listoperation       (group-list list1 (list (/ (length list1) 2)(/ (length list1) 2)) 'linear)
+            listoperationfirst  (loop for i in (reverse (first listoperation))
+                                    collect i
+                                )
+            listoperation       (list (second listoperation) listoperationfirst)
+            newlist             (loop   for a in (first listoperation)
+                                        for b in (second listoperation)
+                                    nconcing (list a b)
+                                )
+    )
+    
+    (setq   listoperation       (group-list list1 (list (/ (- (length list1) 1) 2) 1 (/ (- (length list1) 1) 2)) 'linear)
+            listoperationfirst  (loop for i in (reverse (first listoperation))
+                                    collect i
+                                )
+            listoperationsecond  (second listoperation)
+            newlist             (nconc listoperationsecond 
+                                    (loop   for a in listoperationfirst 
+                                        for b in (third listoperation)
+;                                       collect (cons a (cons b nil))
+                                        nconcing (list a b)
+                                    )
+                                )
+
+    )
+
+    
+)
+
+
+)
+
+;===============================================
+
+(om::defmethod! converge1 ((list1 list))
+ :initvals '('((1 2 3 4 5 6 7 8 9 10 )) )
+  :indoc '("list")
+  :icon 5678645
+  :doc "Converge1 
+
+(Yoshiaki Onishi, July 8, 2024)
+
+Converge1 takes a list and reorders its content, starting from its extremities (the first then the last item of the list) then moving toward the center.
+
+Example 1: (converge1 '(1 2 3 4 5 6 7 8 9 10)) ==> (1 10 2 9 3 8 4 7 5 6)
+Example 2: (converge1 '(1 2 3 4 5 6 7 8 9)) ==>  (1 9 2 8 3 7 4 6 5)
+"
+(if (evenp (length list1))
+    (setq   listoperation       (group-list list1 (list (/ (length list1) 2)(/ (length list1) 2)) 'linear)
+            listoperationlatter (loop for i in (reverse (second listoperation))
+                                    collect i
+                                )
+            listoperation       (list (first listoperation) listoperationlatter)
+            newlist             (loop   for a in (first listoperation)
+                                        for b in (second listoperation)
+                                    nconcing (list a b)
+                                )
+    )
+    
+    (setq   listoperation       (group-list list1 (list 1 (/ (- (length list1) 1) 2)(/ (- (length list1) 1) 2)) 'linear)
+            listoperationthird  (loop for i in (reverse (third listoperation))
+                                    collect i
+                                )
+            listoperationfirst  (first listoperation)
+            newlist             (nconc listoperationfirst 
+                                    (loop   for a in listoperationthird
+                                        for b in (second listoperation)
+;                                       collect (cons a (cons b nil))
+                                        nconcing (list a b)
+                                    )
+                                )
+
+    )
+
+    
+)
+
+)
+
+;===============================================
+
+(om::defmethod! converge2 ((list1 list))
+ :initvals '('((1 2 3 4 5 6 7 8 9 10 )) )
+  :indoc '("list")
+  :icon 5678645
+  :doc "Converge2 
+
+(Yoshiaki Onishi, July 8, 2024)
+
+Converge2 takes a list and reorders its content, starting from its extremities (the last then the first item of the list) then moving toward the center.
+
+Example 1: (converge2 '(1 2 3 4 5 6 7 8 9 10)) ==> (10 1 9 2 8 3 7 4 6 5)
+Example 2: (converge2 '(1 2 3 4 5 6 7 8 9)) ==>  (9 1 8 2 7 3 6 4 5)
+"
+(if (evenp (length list1))
+    (setq   listoperation       (group-list list1 (list (/ (length list1) 2)(/ (length list1) 2)) 'linear)
+            listoperationlatter (loop for i in (reverse (second listoperation))
+                                    collect i
+                                )
+            listoperation       (list (first listoperation) listoperationlatter)
+            newlist             (loop   for a in (second listoperation)
+                                        for b in (first listoperation)
+                                    nconcing (list a b)
+                                )
+    )
+    
+    (setq   listoperation       (group-list list1 (list (/ (- (length list1) 1) 2)(/ (- (length list1) 1) 2) 1) 'linear)
+            listoperationsecond (loop for i in (reverse (second listoperation))
+                                    collect i
+                                )
+            listoperationthird  (third listoperation)
+            newlist             (nconc listoperationthird
+                                    (loop   for a in (first listoperation)
+                                            for b in listoperationsecond
+;                                       collect (cons a (cons b nil))
+                                        nconcing (list a b)
+                                    )
+                                )
+
+    )
+
+    
+)
+
+
+)
+
+;===============================================
+
+(om::defmethod! zigzag-chordseqtrace ( (chordseq list) (list2 list) (num1 number) (num2 number) (num3 number) &optional (contouroption nil))
+ :initvals '('((6000 6400 6700 7000 7400 7800) (6100 6500 6800 7100 7500 7900) (6200 6600 6900 7200 7600 8000) (6300 6700 7000 7300 7700 8100)) '(3 4) 0 2 1 nil)
+  :indoc '("chord-seq list of midicents" "zigzag-arithm-ser Inlet 1: sublist length(s)" "zigzag-arithm-ser Inlet 2: starting pitch in nth value" "zigzag-arithm-ser Inlet 3: skip within sublist" "zigzag-arithm-ser Inlet 4: skip from one sublist to another" "further process of each sublist")
+  :icon 5678645
+  :doc "Zigzag Chord-seq Trace 
+
+(Yoshiaki Onishi, July 8, 2024)
+
+Specifically designed for use with a chord-seq object, this function accomplishes the following:
+
+1. Each chord within the chord-seq object is sorted pitchwise, from the lowest to the highest pitch. 
+2. The chord-seq object is flattened to a series of notes, resembling upward arpeggio from one chord to another.
+3. Inlets 2~5 are analogous to the *zigzag-arithm-ser* function of the OMishi Library. The parameters determine how the series of notes ought to be traversed. It does use *zigzag-arithm-ser* function, with produces the *nth* values for the flattened chord-seq list. 
+- - 3b. Inlet 6 gives the following options as to how each list may be read. It only takes a list aside from nil.
+- - - When set to nil or (o), each list is read linearly. 
+- - - When set to (r), each list is rendered retrograde.
+- - - When set to (c1), each list is processed using *converge1* function of the OMishi Library.
+- - - When set to (c2), each list is processed using *converge2* function of the OMishi Library.
+- - - When set to (b1), each list is processed using *bifurgate1* function of the OMishi Library.
+- - - When set to (b2), each list is processed using *bifurgate2* function of the OMishi Library.
+- - - Combination of these parameters, e.g. (o c1 r) etc, will become the pattern applied to the reading of one list to another.
+4. The numbers that exceed the length of the flattened chord-seq list are converted, in such a way that: (exceeding number) mod (length of the flattened chord-seq list)
+5. The list generated by the preceding process will be used to read the flattened chord-seq object.
+
+Please refer to the example patch, accessible by clicking the function and pushing t.
+"
+(setq   prelimsortedchordseq (loop for i in chordseq collect (sort i #'<))
+        prelimsortedchordseq (flat (loop for i in prelimsortedchordseq collect i))
+        prelimsortedchordseqlength (length prelimsortedchordseq)
+        arithmserlength (length list2)
+        longarithmserlist (flat (loop repeat (om-round (/ prelimsortedchordseqlength arithmserlength)) collect list2))
+        arithms (zigzag-arithm-ser num1 longarithmserlist num2 num3)
+
+        contouroption2  (if (or (eq contouroption nil) (eq contouroption 'o))
+                            (loop repeat (length longarithmserlist) collect 'o)
+                            (subseq 
+                                (flat 
+                                    (loop repeat (ceiling (/ (length arithms) (length contouroption)))
+                                        collect contouroption)
+                                ) 
+                            0 (length arithms)
+                            )
+                        )
+        arithms  (flat
+                        (loop for a in arithms
+                                for b in contouroption2
+                            if (eq b 'o)
+                                collect a
+                            if (eq b 'r)
+                                collect (reverse a)
+                            if (eq b 'b1)
+                                collect (bifurcate1 a)
+                            if (eq b 'b2)
+                                collect (bifurcate2 a)
+                            if (eq b 'c1)
+                                collect (converge1 a)
+                            if (eq b 'c2)
+                                collect (converge2 a)                            
+                        )
+                    )
+        arithms         (loop for a in arithms
+                            collect (keep-within-value a prelimsortedchordseqlength)
+                        )
+
+        finalresult     (loop for a in arithms
+                            collect (nth a prelimsortedchordseq)
+                        )
+)
+
 )

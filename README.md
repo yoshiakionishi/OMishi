@@ -32,6 +32,17 @@
 
     Version 0.x = Pre-release Version (June 30 2024~)
 
+    Version 0.5: July 8 2024
+    Function added:
+        List Operations:
+            - listchomp
+            - bifurcate1
+            - bifurcate2
+            - converge1
+            - converge2
+            - zigzag-chordseqtrace
+
+
     Version 0.4: July 7 2024
     Function added:
         List Operations

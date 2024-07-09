@@ -4,9 +4,10 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;
 ;   Version 0.1: June 30 2024 (initial beta release before going official and releasing Version 1)
-;   Version 0.2: July 2 2024 (added euclidean-rhythm-binary function)
-;   Version 0.3: July 6 2024 (added dejong, dejong-svensson, lorenz functions)
-;   Version 0.4: July 7 2024 (added chord-rotate function)
+;   Version 0.2: July 2 2024 (added euclidean-rhythm-binary)
+;   Version 0.3: July 6 2024 (added dejong, dejong-svensson, lorenz)
+;   Version 0.4: July 7 2024 (added chord-rotate)
+;   Version 0.5: July 8 2024 (added listchomp, etc.)
 ;===============================================
 ;   This program is free software. For information on usage 
 ;   and redistribution, see the "LICENSE" file in this distribution.
@@ -38,7 +39,7 @@
 (om::fill-library 
  '(
    ("number operations" Nil Nil (keep-within-value ) Nil)
-   ("list operations" Nil Nil (fraction-maker 0to-1 -1to0 find-duplicate-number 10->num num->10 chord-rotate) Nil)
+   ("list operations" Nil Nil (listchomp bifurcate1 bifurcate2 converge1 converge2 fraction-maker 0to-1 -1to0 find-duplicate-number 10->num num->10 chord-rotate zigzag-chordseqtrace) Nil)
    ("number generators" Nil Nil (srn zigzag-arithm-ser euclid-rhythm-binary dejong dejong-svensson lorenz) Nil)
    ("self-similarity" Nil Nil (1D-CELLULAR-AUTOMATA ) Nil)
    ))
