@@ -130,6 +130,7 @@ It outputs:
 in a list of 1 (pulses) and 0 (non-pulses)
 (NB: Bjorklund's stopping rule is applied. (see Toussaint, page 2 (or 3 for extended version))
 
+Click on the function and push t to see an example patch.
 
 --------
 [1] Toussaint, Godfried. *The Euclidean Algorithm Generates Traditional Musical Rhythms.* Paper presented at the BRIDGES: Mathematical Connections in Art, Music and Science, Banff, Alberta, Canada, 2005.
