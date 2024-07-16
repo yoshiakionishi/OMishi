@@ -33,21 +33,28 @@
     Version 0.x = Pre-release Version (June 30 2024~)
 
     Version 0.6: July 16 2024
-    Function added:
+    New Functions:
         List Operations:
             - euclid-distance
             - euclid-distance-3d
-        Number Generators
+        Number Generators:
             - mandelbrot-imager
             - mandelbrot-calc
+    Corrected:
+        List Operations:
+            - bifurcate1
+            - bifurcate2
+            - converge1
+            - converge2
+                (For these functions I removed an extra level of list from the default inlet values. The default values should work now.)
 
     Version 0.5.1: July 9 2024
-    Function corrected:
+    Corrected:
         Number Generators
             - zigzag-arithm-ser
 
     Version 0.5: July 8 2024
-    Function added:
+    New Functions:
         List Operations:
             - listchomp
             - bifurcate1
@@ -58,12 +65,12 @@
 
 
     Version 0.4: July 7 2024
-    Function added:
+    New Function:
         List Operations
             - chord-rotate
 
     Version 0.3: July 6 2024
-    Functions added:
+    New Functions:
         Number Generators
             - dejong
             - dejong-svensson
@@ -71,7 +78,7 @@
 
 
     Version 0.2: July 2 2024
-    Functions added:
+    New Functions:
         Number Generators
             - euclid-rhythm-binary
         List Operations
@@ -80,7 +87,7 @@
 
 
     Version 0.1: June 30 2024 
-    Functions included in this version are:
+    New Functions:
         List Operations
             - fraction-maker
             - 0to-1
