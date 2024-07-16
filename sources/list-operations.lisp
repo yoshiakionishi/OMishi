@@ -21,6 +21,9 @@
 ; - find-duplicate-number
 ; - num->10
 ; - 10->num
+; As of July 16 2024
+; - euclid-distance
+; - euclid-distance-3d
 
 ;===============================================
 
@@ -562,6 +565,109 @@ Please refer to the example patch, accessible by clicking the function and pushi
         finalresult     (loop for a in arithms
                             collect (nth a prelimsortedchordseq)
                         )
+)
+
+)
+
+
+;===============================================
+
+
+(om::defmethod! euclid-distance ((list1 list) (mode symbol)) 
+ :initvals '('((0 0) (4 3) (1 -1)) 'xyxy ) 
+  :indoc '("list of coordinates" "format")
+  :menuins '((1 (("((x1 y1) (x2 y2)...)" 'xyxy ) ("((x1 x2 x3...)(y1 y2 y3...))" 'xxyy ))))
+  :icon 5678645
+  :doc "euclid-distance
+
+(Yoshiaki Onishi, July 16, 2024)
+
+This function computes the Euclidean distance between two points in 2D Euclidean Space.
+
+It can accept lists of points in two different formats:
+
+((x1 y1) (x2 y2) (x3 y3)...) or ((x1 x2 x3...)(y1 y2 y3...)). 
+
+When there are more than two points, this function computes each of the Euclidean distances between two successive points. 
+
+For Euclidean distance between two points in 3D Euclidean Space, use euclid-distance-3d.
+
+"
+
+(if (eq mode 'xyxy)
+    (setq process 0)
+    (setq process 1)
+)
+
+(if (eq process 0) 
+        (loop for n from 1 to (- (length list1) 1)
+            collect (sqrt 
+                        (+  (expt (abs (- (first (nth n list1)) (first (nth (- n 1) list1)))) 2)
+                            (expt (abs (- (second (nth n list1)) (second (nth (- n 1) list1)))) 2)
+                        )
+                    )
+        )
+        (loop for n from 1 to (- (length (first list1)) 1)
+            collect  (sqrt 
+                        (+  (expt (abs (- (nth n (first list1)) (nth (- n 1) (first list1)))) 2)
+                            (expt (abs (- (nth n (second list1)) (nth (- n 1) (second list1)))) 2)
+                        )
+                    )
+        )    
+
+
+)
+
+)
+;===============================================
+
+
+(om::defmethod! euclid-distance-3d ((list1 list) (mode symbol)) 
+ :initvals '('((0 0) (4 3) (1 -1)) 'xyzxyzxyz ) 
+  :indoc '("list of coordinates" "format")
+  :menuins '((1 (("((x1 y1 z1) (x2 y2 z2)...)" 'xyzxyzxyz ) ("((x1 x2...)(y1 y2...)(z1 z2...))" 'xxxyyyzzz ))))
+  :icon 5678645
+  :doc "euclid-distance-3d
+
+(Yoshiaki Onishi, July 15, 2024)
+
+This function computes the Euclidean distance between two points in 3D Euclidean Space.
+
+It can accept lists of points in two different formats:
+
+((x1 y1 z1) (x2 y2 z2)...) or ((x1 x2...)(y1 y2...)(z1 z2...)). 
+
+When there are more than two points, this function computes each of the Euclidean distances between two successive points. 
+
+For Euclidean distance between two points in 2D Euclidean Space, use euclid-distance-2d.
+
+"
+
+(if (eq mode 'xyzxyzxyz)
+    (setq process 0)
+    (setq process 1)
+)
+
+(if (eq process 0) 
+        (loop for n from 1 to (- (length list1) 1)
+            collect (sqrt 
+                        (+  (expt (abs (- (first (nth n list1)) (first (nth (- n 1) list1)))) 2)
+                            (expt (abs (- (second (nth n list1)) (second (nth (- n 1) list1)))) 2)
+                            (expt (abs (- (third (nth n list1)) (third (nth (- n 1) list1)))) 2)
+                        )
+                    )
+        )
+        (loop for n from 1 to (- (length (first list1)) 1)
+            collect  (sqrt 
+                        (+  (expt (abs (- (nth n (first list1)) (nth (- n 1) (first list1)))) 2)
+                            (expt (abs (- (nth n (second list1)) (nth (- n 1) (second list1)))) 2)
+                            (expt (abs (- (nth n (third list1)) (nth (- n 1) (third list1)))) 2)
+
+                        )
+                    )
+        )    
+
+
 )
 
 )

@@ -32,6 +32,15 @@
 
     Version 0.x = Pre-release Version (June 30 2024~)
 
+    Version 0.6: July 16 2024
+    Function added:
+        List Operations:
+            - euclid-distance
+            - euclid-distance-3d
+        Number Generators
+            - mandelbrot-imager
+            - mandelbrot-calc
+
     Version 0.5.1: July 9 2024
     Function corrected:
         Number Generators

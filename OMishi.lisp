@@ -8,6 +8,7 @@
 ;   Version 0.3: July 6 2024 (added dejong, dejong-svensson, lorenz)
 ;   Version 0.4: July 7 2024 (added chord-rotate)
 ;   Version 0.5: July 8 2024 (added listchomp, etc.)
+;   Version 0.6: July 16 2024 (added mandelbrot-imager, etc.)
 ;===============================================
 ;   This program is free software. For information on usage 
 ;   and redistribution, see the "LICENSE" file in this distribution.
@@ -39,8 +40,8 @@
 (om::fill-library 
  '(
    ("number operations" Nil Nil (keep-within-value ) Nil)
-   ("list operations" Nil Nil (listchomp bifurcate1 bifurcate2 converge1 converge2 fraction-maker 0to-1 -1to0 find-duplicate-number 10->num num->10 chord-rotate zigzag-chordseqtrace) Nil)
-   ("number generators" Nil Nil (srn zigzag-arithm-ser euclid-rhythm-binary dejong dejong-svensson lorenz) Nil)
+   ("list operations" Nil Nil (listchomp bifurcate1 bifurcate2 converge1 converge2 euclid-distance euclid-distance-3d fraction-maker 0to-1 -1to0 find-duplicate-number 10->num num->10 chord-rotate zigzag-chordseqtrace) Nil)
+   ("number generators" Nil Nil (srn zigzag-arithm-ser euclid-rhythm-binary dejong dejong-svensson lorenz mandelbrot-imager mandelbrot-calc) Nil)
    ("self-similarity" Nil Nil (1D-CELLULAR-AUTOMATA ) Nil)
    ))
 

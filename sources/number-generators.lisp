@@ -14,6 +14,9 @@
 ; - dejong
 ; - dejong-svensson
 ; - lorenz
+; As of July 16 2024
+; - mandelbrot-imager
+; - mandelbrot-calc
 
 ;===============================================
 
@@ -130,7 +133,6 @@ It outputs:
 in a list of 1 (pulses) and 0 (non-pulses)
 (NB: Bjorklund's stopping rule is applied. (see Toussaint, page 2 (or 3 for extended version))
 
-Click on the function and push t to see an example patch.
 
 --------
 [1] Toussaint, Godfried. *The Euclidean Algorithm Generates Traditional Musical Rhythms.* Paper presented at the BRIDGES: Mathematical Connections in Art, Music and Science, Banff, Alberta, Canada, 2005.
@@ -474,4 +476,125 @@ For details, see: https://paulbourke.net/fractals/lorenz/
     collect newz into z-list
     finally (return (list x-list y-list z-list))
 )
+)
+
+
+;===============================================
+
+(om::defmethod! mandelbrot-imager ((realnumberrange list) (imagnumberrange list) (iterationtestvalue number)) 
+ :initvals '('(-1.75 0.5 0.005) '(-1 1 0.005) 30) 
+  :indoc '("real number range (min max increment)" "imaginary number range (min max increment)" "iteration")
+  :icon 2345312
+  :doc "mandelbrot-imager
+
+(Yoshiaki Onishi, July 16, 2024)
+
+This function evaluates whether or not the set of complex numbers Z(n) that starts with the fixed value C (range for real and imaginary numbers must be specified via the first two inlets) that are iterated by the Mandelbrot equation
+
+Z(n+1) = Z(n)^2 + C
+
+are bounded. If bounded, the value C is returned.
+
+First two inlets specify the range of real and imaginary numbers for a series of complex numbers to be evaluated. You may specify the range as follows:
+
+(minimum maximum increment)
+
+Once evaluated, depending on the range of the value C, it will take a while to calculate the result. Please be patient!
+
+Best used with BPC object, this function is useful in identifying the value C for use in generating Mandelbrot set by using the function, mandelbrot-calc. 
+
+See the example patch by selecting the function and pushing t."
+
+(setq   zvalue (complex 0 0)
+        realhalflist (arithm-ser (first realnumberrange) (second realnumberrange) (third realnumberrange))
+        imaghalflist (arithm-ser (first imagnumberrange) (second imagnumberrange) (third imagnumberrange))
+)
+
+(remove nil 
+        (loop for i in imaghalflist
+                nconcing (loop for r in realhalflist
+                nconcing (loop initially (setq zvalue (complex 0 0)) for y from 1 to iterationtestvalue
+                            do (setq zvalue (+ (expt zvalue 2) (complex r i)))
+                            until (or (> (abs (realpart zvalue)) 2)(> (abs (imagpart zvalue)) 2))
+                            if (= y iterationtestvalue)
+                            collect (list r i)
+                        )
+            )
+        )
+)
+
+)
+
+
+;===============================================
+
+
+(om::defmethod! mandelbrot-calc ((realhalf number) (imaghalf number) (iterationtestvalue number) (mode symbol)) 
+ :initvals '(-0.01 0 30 'ascomplexnumber ) 
+  :indoc '("real" "imag" "iteration" "output as complex nums or real imag nums separated")
+  :menuins '((3 (("output as (#C(r1 i1) #C(r2 i2)...)" 'ascomplexnumber ) ("output as ((r1 r2 r3...)(i1 i2 i3...))" 'realandimag ))))
+  :icon 2345312
+  :doc "mandelbrot-calc
+
+(Yoshiaki Onishi, July 16, 2024)
+
+This function outputs a set of values Z(n), based on the fixed value, complex number C (Inlets 1 and 2 that accept real and imaginary numbers respectively) iterated (n times, as specified in Inlet 3) using the Mandelbrot equation
+
+Z(n+1) = Z(n)^2 + C
+
+If Z(n) exceeds 2, the iteration stops at that point. You will also see in the OM Listener that the set is not part of Mandelbrot set. 
+
+Inlet 4 provides the option of output being a list of Complex Numbers, or a list of two sublists, where real and imaginary numbers are separated.
+
+
+
+
+"
+(setq subsequentzvalue 0
+        realness 0
+        imagness 0)
+(if (eq mode 'ascomplexnumber)
+    (setq output 0)
+    (setq output 1)
+)
+
+(if (eq output 0) 
+    (progn 
+        (setq subsequentzvalue (loop initially (setq zvalue (complex 0 0)) for y from 1 to iterationtestvalue
+                        do (setq zvalue (+ (expt zvalue 2) (complex realhalf imaghalf)))
+                        until (or (> (abs (realpart zvalue)) 2)(> (abs (imagpart zvalue)) 2))
+                        collect zvalue
+                               )
+        )
+        (if (eq (length subsequentzvalue) iterationtestvalue)
+            (progn  (print "set remained bounded ==> likely part of Mandelbrot set")
+                subsequentzvalue
+            )
+            (progn (print "set did not remain bounded ==> not part of Mandelbrot set")
+                subsequentzvalue
+            )
+        )
+    )
+
+    (progn
+        (setq subsequentzvalue  (loop initially (setq zvalue (complex 0 0)) for y from 1 to iterationtestvalue
+                                    do (setq zvalue (+ (expt zvalue 2) (complex realhalf imaghalf)))
+                                    until (or (> (abs (realpart zvalue)) 2)(> (abs (imagpart zvalue)) 2))
+                                    collect (realpart zvalue) into realness
+                                    collect (imagpart zvalue) into imagness
+                                    finally (return (list realness imagness))
+                                )
+        )
+        (if (eq (length (first subsequentzvalue)) iterationtestvalue)
+            (progn  (print "set remained bounded ==> likely part of Mandelbrot set")
+                subsequentzvalue
+            )
+            (progn 
+                (print "set did not remain bounded ==> not part of Mandelbrot set" )
+                subsequentzvalue
+            )
+        )
+    )
+)
+
 )
