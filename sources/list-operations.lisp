@@ -291,7 +291,7 @@ For details, especially on *perm-interval-2*, please refer to: Onishi, Yoshiaki.
 ;===============================================
 
 (om::defmethod! listchomp ((list1 list) (num1 number) (num2 number))
- :initvals '('((1 2 3 4 5 6 7 8 9 10 ) 3 7) )
+ :initvals '('((1 2 3 4 5 6 7 8 9 10) 3 7) )
   :indoc '("list" "starting index number" "ending index number")
   :icon 5678645
   :doc "listchomp 
@@ -310,7 +310,7 @@ Example: (listchomp '(1 2 3 4 5 6 7 8 9 10) 3 7) ==> (4 5 6 7 8)
 ;===============================================
 
 (om::defmethod! bifurcate1 ((list1 list))
- :initvals '('((1 2 3 4 5 6 7 8 9 10 )) )
+ :initvals '('(1 2 3 4 5 6 7 8 9 10) )
   :indoc '("list")
   :icon 5678645
   :doc "Bifurcate1 
@@ -356,7 +356,7 @@ Example 2: (bifurcate1 '(1 2 3 4 5 6 7 8 9)) ==> (5 6 4 7 3 8 2 9 1)
 ;===============================================
 
 (om::defmethod! bifurcate2 ((list1 list))
- :initvals '('((1 2 3 4 5 6 7 8 9 10 )) )
+ :initvals '('(1 2 3 4 5 6 7 8 9 10) )
   :indoc '("list")
   :icon 5678645
   :doc "Bifurcate2 
@@ -404,7 +404,7 @@ Example 2: (bifurcate2 '(1 2 3 4 5 6 7 8 9)) ==> (5 4 6 3 7 2 8 1 9)
 ;===============================================
 
 (om::defmethod! converge1 ((list1 list))
- :initvals '('((1 2 3 4 5 6 7 8 9 10 )) )
+ :initvals '('(1 2 3 4 5 6 7 8 9 10) )
   :indoc '("list")
   :icon 5678645
   :doc "Converge1 
@@ -451,7 +451,7 @@ Example 2: (converge1 '(1 2 3 4 5 6 7 8 9)) ==>  (1 9 2 8 3 7 4 6 5)
 ;===============================================
 
 (om::defmethod! converge2 ((list1 list))
- :initvals '('((1 2 3 4 5 6 7 8 9 10 )) )
+ :initvals '('(1 2 3 4 5 6 7 8 9 10) )
   :indoc '("list")
   :icon 5678645
   :doc "Converge2 
