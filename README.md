@@ -22,10 +22,44 @@
     Lisp language, either natively or translating them from OpenMusic
     patches or Javascript codes. 
     
-    It is a work in progress; more will be added as the need arises.
+    Parallel to my work as a composer, OMishi is a work in progress; 
+    more will be added as the need arises.
 
     - Yoshiaki Onishi
+
+=======================================================================
+
+    How to use OMishi in OpenMusic
+
+    1.  Download the zip file from: 
+        https://github.com/yoshiakionishi/OMishi
     
+        Click the button "<> Code" and select "Download ZIP"
+
+    2.  Once you download it, defrost the zip file. 
+
+    3.  Remove the "-main" the defrosted folder "OMishi-main" 
+        so that the folder name should be simply "OMishi"
+
+    4.  **DO NOT RUN THE OPENMUSIC YET** --- Without altering its
+        content, move the folder "OMishi" to the OM libraries folder
+        (for Mac users, the default folder would be 
+        /Users/[yourcomputername]/OM/Libraries
+        You can also specify additional folder(s) from 
+        OM Preferences later)
+
+    5.  Run OpenMusic. In Preferences => Libraries, under the 
+        "Auto Load" list of libraries, OMishi should already appear
+        if you moved the folder to the default OM libraries folder. 
+        If "OMishi" is not checked, check it. Then click Apply. Exit
+        the Preferences.
+
+    6.  You should now be able to use OMishi in your patches.
+
+    7.  For some functions, I have provided example patches. 
+        Invoke, for example, the function "euclid-rhythm-binary", 
+        click it, and type t to see the patch.
+
 =======================================================================
 
     Version Info
