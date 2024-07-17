@@ -31,6 +31,8 @@
 
     How to use OMishi in OpenMusic
 
+    **DO NOT RUN THE OPENMUSIC FOR THE FIRST 4 STEPS** 
+
     1.  Download the zip file from: 
         https://github.com/yoshiakionishi/OMishi
     
@@ -38,13 +40,11 @@
 
     2.  Once you download it, defrost the zip file. 
 
-    3.  Remove the "-main" the defrosted folder "OMishi-main" 
-        so that the folder name should be simply "OMishi"
+    3.  Rename the defrosted folder "OMishi-main" to "OMishi"
 
-    4.  **DO NOT RUN THE OPENMUSIC YET** --- Without altering its
-        content, move the folder "OMishi" to the OM libraries folder
-        (for Mac users, the default folder would be 
-        /Users/[yourcomputername]/OM/Libraries
+    4.  Without altering its content, move the folder "OMishi" 
+        to the OM libraries folder (for Mac users, the default 
+        folder would be  /Users/[yourcomputername]/OM/Libraries
         You can also specify additional folder(s) from 
         OM Preferences later)
 
