@@ -5,6 +5,8 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;===============================================
 ; OMishi Functions: List Operations
+; As of July 18 2024
+; - DELETED: listchomp (I am rewriting a new code for it)
 ; As of July 8 2024
 ; - listchomp
 ; - bifurcate1
@@ -287,25 +289,6 @@ For details, especially on *perm-interval-2*, please refer to: Onishi, Yoshiaki.
 )
 )
 
-
-;===============================================
-
-(om::defmethod! listchomp ((list1 list) (num1 number) (num2 number))
- :initvals '('((1 2 3 4 5 6 7 8 9 10) 3 7) )
-  :indoc '("list" "starting index number" "ending index number")
-  :icon 5678645
-  :doc "listchomp 
-
-(Yoshiaki Onishi, July 8, 2024)
-
-This function trims a list from both ends using the index numbers. It acts like *subseq*, except the ending index number is included in the resultant list.
-
-Example: (listchomp '(1 2 3 4 5 6 7 8 9 10) 3 7) ==> (4 5 6 7 8)
-"
-(loop for x from 0 to (- (- num2 num1) 1) 
-    collect (nth x (nthcdr num1 list1)))
-
-)
 
 ;===============================================
 
