@@ -66,6 +66,10 @@
 
     Version 0.x = Pre-release Version (June 30 2024~)
 
+    Version 0.7: July 19 2024
+    Added:
+        - listchomp (beta version but improved functionality)
+
     Version 0.6.1: July 18 2024
     Deleted:
         - listchomp (I am building a new code)

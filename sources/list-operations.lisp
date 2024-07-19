@@ -5,6 +5,8 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;===============================================
 ; OMishi Functions: List Operations
+; As of July 19 2024
+; - listchomp (added once again, while it is in a beta version, with improved functionality)
 ; As of July 18 2024
 ; - DELETED: listchomp (I am rewriting a new code for it)
 ; As of July 8 2024
@@ -649,6 +651,213 @@ For Euclidean distance between two points in 2D Euclidean Space, use euclid-dist
                         )
                     )
         )    
+
+
+)
+
+)
+
+;===============================================
+
+
+(om::defmethod! listchomp ((num1 t) (num2 t) (num3 t) (list1 list)) 
+ :initvals '(0 5 nil '(1 2 3 4 5 6 7 8 9 10) ) 
+  :indoc '("starting index (0-based) or 'nil'" "stopping index (0-based), 'end', 'last' or 'nil'" "step or 'nil'" "list")
+  :icon 5678645
+  :doc "listchomp
+
+(Yoshiaki Onishi, July 19, 2024)
+
+NB: This function is still being tested for accuracy.
+
+Inlet 1: starting index (also accepts: nil)
+Inlet 2: stopping index (also accepts: end, last or nil)
+Inlet 3: step (also accepts: nil)
+Inlet 4: list
+
+This function behaves nearly the same as the array slicing functionality of NumPy Package of Python, where starting index (0-based), stopping index, and step are given in order to slice an array.
+
+(Reference: https://numpy.org/doc/stable/user/basics.indexing.html)
+
+For example, for the following Python code:
+>>> x = NumPy.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+>>> x[1:7:2]
+array([1, 3, 5])
+
+You can obtain the same result using *listchomp* as follows:
+> (setq x '(0 1 2 3 4 5 6 7 8 9))
+> (listchomp 1 7 2 x)
+=> (1 3 5)
+
+Some syntacical differences between listchomp and NumPy array slicing (x is a list of '(0 1 2 3 4 5 6 7 8 9)):
+
+1) Use nil for the absence of an index. For example:
+
+>>> x[1]
+(listchomp 1 nil nil x)
+=> 1
+
+>>> x[-3]
+(listchomp -3 nil nil x)
+=> 7
+
+>>> x[:5]
+(listchomp nil 5 nil x)
+=> (0 1 2 3 4)
+
+>>> x[5::-2]
+(listchomp 5 nil -2 x)
+=> (5 3 1)
+
+
+2) The use/non-use of the initial colon in NumPy array slicing is differentiated in listchomp as:
+
+>>> x[4]
+(listchomp 4 nil nil x)
+=> 4
+
+>>> x[4:]
+(listchomp 4 end nil x) OR
+(listchomp 4 last nil x)
+=> (4 5 6 7 8 9)
+
+3) When the stopping index is lower than the starting index, listchomp interprets it as reversing the list. When no value is declared in *step*, it is understood as -1. Thus:
+
+>>> x[6:2]
+[] 
+
+But:
+(listchomp 6 2 nil x)
+=> (6 5 4 3)
+
+Equivalent in NumPy array slicing as:
+>>> x[6:2:-1]
+
+
+
+"
+(cond   (
+            (and (not (eq num1 nil))(eq num2 nil))  ; equivalent to array[n1::-n3]
+            (cond   (   (or (eq num3 nil) (= num3 0)) ; equivalent to array[n1::]
+                        (nth (keep-within-value num1 (length list1)) list1)
+                    )
+                    (   (< num3 0) ; equivalent to array[n1::-n3]
+                        (setq   newnum1 (keep-within-value num1 (length list1))
+                        )
+                        (loop for n from newnum1 downto 0 by (abs num3)
+                        collect (nth n list1)
+                        )
+
+                    )
+                    (   (> num3 0) ; equivalent to array[n1::+n3]
+                        (setq   newnum1 (keep-within-value num1 (length list1))
+                        )
+                        (loop for n from newnum1 to (- (length list1) 1) by (abs num3)
+                        collect (nth n list1)
+                        )
+
+                    )
+
+            )
+        )
+        (
+            (and (not (eq num1 nil))(or (eq num2 'last)(eq num2 'end)))  ; equivalent to array[n1::-n3]
+            (cond   (   (or (eq num3 nil) (>= num3 0)) ; equivalent to array[n1::+n3]
+                        (setq   newnum1 (keep-within-value num1 (length list1))
+                        )
+                        (loop for n from newnum1 to (- (length list1) 1) by (if (eq num3 nil) 1 num3)
+                        collect (nth n list1)
+                        )
+
+                    )
+                    (   (< num3 0) ; equivalent to array[n1::-n3]
+                        (setq   newnum1 (keep-within-value num1 (length list1))
+                        )
+                        (loop for n from newnum1 downto 0 by (abs num3)
+                        collect (nth n list1)
+                        )
+                    )
+            )
+        )
+        (
+            (and (not (eq num1 nil))(not (eq num2 nil))) ; equivalent to array[n1:n2:]
+            (setq   newnum1     (cond ((< num1 (* (length list1) -1)) 0 )
+                                  ((and (>= num1 (* (length list1) -1)) (< num1 (length list1))) (keep-within-value num1 (length list1)))
+                                  ((>= num1 (length list1)) (- (length list1) 1))
+                                )
+                    newnum2     (cond ((< num2 (* (length list1) -1)) 0 )
+                                  ((and (>= num2 (* (length list1) -1)) (< num2 (length list1))) (keep-within-value num2 (length list1)))
+                                  ((>= num2 (length list1)) (length list1))
+                                )
+            )
+            (cond   (   (< newnum1 newnum2) 
+                        (if (or (eq num3 nil)(>= num3 0))                        
+                        (loop for n from newnum1 to (- newnum2 1) by (if (or (eq num3 nil)(eq num3 0)) 1 num3)
+                        collect (nth n list1)
+                        ))
+                    )
+                    (   (> newnum1 newnum2)
+                        (if (or (eq num3 nil)(<= num3 0))    
+                        (loop for n from newnum1 downto (+ newnum2 1) by (if (or (eq num3 nil)(eq num3 0)) 1 (abs num3))
+                        collect (nth n list1)
+                        ))
+                    )
+            )
+        )
+        (
+            (and (eq num1 nil)(not (eq num2 nil))) ; equivalent to array[:n2:]
+            (setq   newnum1    0
+                    newnum2    (cond ((< num2 (* (length list1) -1)) 0)
+                                  ((and (>= num2 (* (length list1) -1)) (< num2 (length list1))) (keep-within-value num2 (length list1)))
+                                  ((>= num2 (length list1)) (length list1))
+                            )
+            )
+            (cond   (   (and (< newnum1 newnum2) (eq num3 nil)) 
+                        (loop for n from newnum1 to (- newnum2 1) by 1
+                        collect (nth n list1)
+                        )
+                    )
+                    (   (and (< newnum1 newnum2) (>= num3 0)) 
+                        (loop for n from newnum1 to (- newnum2 1) by (if (eq num3 0) 1 num3)
+                        collect (nth n list1)
+                        )
+                    )
+                    (   (and (< newnum1 newnum2) (< num3 0)) 
+                        (loop for n from (- (length list1) 1) downto (+ newnum2 1) by (abs num3)
+                        collect (nth n list1)
+                        )
+                    )
+                    (   (> newnum1 newnum2)
+                        (if (< num3 0)    
+                        (loop for n from (- (length list1) 1) downto newnum2 by (if (or (eq num3 nil)(eq num3 0)) 1 num3)
+                        collect (nth n list1)
+                        ))
+                    )
+            )
+       
+
+        )
+       (
+            (and (eq num1 nil)(eq num2 nil))
+            (cond   (   (or (eq num3 0)(eq num3 nil))
+                        (loop for n from 0 to (- (length list1) 1)
+                        collect (nth n list1)
+                        )
+                    )
+
+                    (   (< num3 0)
+                        (loop for n from (- (length list1) 1) downto 0 by (abs num3)
+                        collect (nth n list1)
+                        )
+                    )
+                    (   (> num3 0)
+                        (loop for n from 0 to (- (length list1) 1) by num3
+                        collect (nth n list1)
+                        )
+                    )
+            )
+            
+        )
 
 
 )
