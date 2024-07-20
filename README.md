@@ -88,7 +88,9 @@
             - bifurcate2
             - converge1
             - converge2
-                (For these functions I removed an extra level of list from the default inlet values. The default values should work now.)
+                (For these functions I removed an extra level of list 
+                from the default inlet values. The default values 
+                should work now.)
 
     Version 0.5.1: July 9 2024
     Corrected:
