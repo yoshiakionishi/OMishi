@@ -25,7 +25,42 @@
     Parallel to my work as a composer, OMishi is a work in progress; 
     more will be added as the need arises.
 
-    - Yoshiaki Onishi
+=======================================================================
+
+    Contents
+
+    OMishi
+    - Attractors and Self-Similarity
+    - - - dejong 
+    - - - dejong-svensson 
+    - - - lorenz 
+    - - - mandelbrot-imager 
+    - - - mandelbrot-calc 
+    - - - 1D-CELLULAR-AUTOMATA
+    - Euclid
+    - - - euclid-rhythm-binary 
+    - - - euclid-distance 
+    - - - euclid-distance-3d
+    - Number Operations
+    - - - keep-within-value
+    - List Operations
+    - - - bifurcate1 
+    - - - bifurcate2 
+    - - - converge1 
+    - - - converge2 
+    - - - fraction-maker 
+    - - - 0to-1 
+    - - - -1to0 
+    - - - search-number-index 
+    - - - 10->num 
+    - - - num->10 
+    - - - chord-rotate 
+    - - - zigzag-chordseqtrace 
+    - - - listchomp
+    - Number Generators
+    - - - srn 
+    - - - zigzag-arithm-ser 
+
 
 =======================================================================
 
@@ -65,6 +100,13 @@
     Version Info
 
     Version 0.x = Pre-release Version (June 30 2024~)
+
+    Version 0.8: July 24 2024
+    Reorganized the functions
+    Revised:
+        - dejong
+        - dejong-svensson
+        - lorenz
 
     Version 0.7: July 19 2024
     Added:

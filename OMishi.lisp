@@ -30,10 +30,11 @@
 
 (mapc 'om::compile&load 
       (list
+       (make-pathname  :directory (append (pathname-directory *load-pathname*) (list "sources")) :name "attractors-self-similarity" :type "lisp")
+       (make-pathname  :directory (append (pathname-directory *load-pathname*) (list "sources")) :name "euclid" :type "lisp")
        (make-pathname  :directory (append (pathname-directory *load-pathname*) (list "sources")) :name "number-operations" :type "lisp")
        (make-pathname  :directory (append (pathname-directory *load-pathname*) (list "sources")) :name "list-operations" :type "lisp")
        (make-pathname  :directory (append (pathname-directory *load-pathname*) (list "sources")) :name "number-generators" :type "lisp")
-       (make-pathname  :directory (append (pathname-directory *load-pathname*) (list "sources")) :name "self-similarity" :type "lisp")
 
        ))
 
@@ -41,10 +42,11 @@
 
 (om::fill-library 
  '(
+   ("attractors and self-similarity operations" Nil Nil (dejong dejong-svensson lorenz mandelbrot-imager mandelbrot-calc 1D-CELLULAR-AUTOMATA ) Nil)
+   ("euclid" Nil Nil (euclid-rhythm-binary euclid-distance euclid-distance-3d) Nil)
    ("number operations" Nil Nil (keep-within-value ) Nil)
-   ("list operations" Nil Nil (bifurcate1 bifurcate2 converge1 converge2 euclid-distance euclid-distance-3d fraction-maker 0to-1 -1to0 find-duplicate-number 10->num num->10 chord-rotate zigzag-chordseqtrace listchomp) Nil)
-   ("number generators" Nil Nil (srn zigzag-arithm-ser euclid-rhythm-binary dejong dejong-svensson lorenz mandelbrot-imager mandelbrot-calc) Nil)
-   ("self-similarity" Nil Nil (1D-CELLULAR-AUTOMATA ) Nil)
+   ("list operations" Nil Nil (bifurcate1 bifurcate2 converge1 converge2 fraction-maker 0to-1 -1to0 search-number-index 10->num num->10 chord-rotate zigzag-chordseqtrace listchomp) Nil)
+   ("number generators" Nil Nil (srn zigzag-arithm-ser ) Nil)
    ))
 
 
