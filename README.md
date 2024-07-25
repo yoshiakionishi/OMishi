@@ -2,7 +2,9 @@
 =======================================================================
 
 OMishi
+
 A library of Common Lisp functions
+
 by Yoshiaki Onishi <https://www.yoshionishi.com>
 
 =======================================================================
