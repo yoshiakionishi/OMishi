@@ -1,11 +1,14 @@
 # OMishi
 =======================================================================
 
-OMishi
-A library of Common Lisp functions
-by Yoshiaki Onishi [[https://www.yoshionishi.com]]
+**OMishi**
+
+A library of Common Lisp functions for OpenMusic
+
+by Yoshiaki Onishi (https://www.yoshionishi.com)
 
 Version 0.8
+
 =======================================================================
 
 This program is free software. For information on usage 
@@ -26,7 +29,7 @@ more will be added as the need arises.
 
 =======================================================================
 
-Contents
+**Contents**
 
     OMishi
     - Attractors and Self-Similarity
@@ -62,9 +65,9 @@ Contents
 
 =======================================================================
 
-Version Info
+**Version Info**
 
-Version 0.x = Pre-release Version (June 30 2024~)
+*Version 0.x = Pre-release Version (June 30 2024~)*
 
 Version 0.8: July 24 2024
 Reorganized the functions
