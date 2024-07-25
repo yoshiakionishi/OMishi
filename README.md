@@ -21,7 +21,7 @@
     **DO NOT RUN THE OPENMUSIC FOR THE FIRST 3 STEPS** 
 
     1.  Download the zip file from: 
-        [[https://github.com/yoshiakionishi/OMishi/archive/refs/heads/main.zip]]
+        [[here](https://github.com/yoshiakionishi/OMishi/archive/refs/heads/main.zip)]
     
         Click the button "<> Code" and select "Download ZIP"
 
