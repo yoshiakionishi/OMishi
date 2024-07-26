@@ -11,6 +11,8 @@
 ;   Version 0.6: July 16 2024 (added mandelbrot-imager, etc.)
 ;   Version 0.6.1: July 18 2024 (deleted listchomp; I am building a new code for it)
 ;   Version 0.7: (added beta version of listchomp)
+;   Version 0.8: July 24-26 (revisions on some functions)
+;   Version 0.8.1: July 26 (revised search-number-index)
 ;===============================================
 ;   This program is free software. For information on usage 
 ;   and redistribution, see the "LICENSE" file in this distribution.

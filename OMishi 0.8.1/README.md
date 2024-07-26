@@ -1,35 +1,32 @@
 # OMishi
 =======================================================================
 
-**OMishi**
+    OMishi
+    A library of Common Lisp functions
+    by Yoshiaki Onishi [[https://www.yoshionishi.com]]
 
-A library of Common Lisp functions for OpenMusic
+    Version 0.8
+=======================================================================
 
-by Yoshiaki Onishi (https://www.yoshionishi.com)
+    This program is free software. For information on usage 
+    and redistribution, see the "LICENSE" file in this distribution.
 
-Version 0.8
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
 
 =======================================================================
 
-This program is free software. For information on usage 
-and redistribution, see the "LICENSE" file in this distribution.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-
-=======================================================================
-
-OMishi houses functions that I have written codes for in Common
-Lisp language, either natively or translating them from OpenMusic
-patches or Javascript codes. 
-
-Parallel to my work as a composer, OMishi is a work in progress; 
-more will be added as the need arises.
+    OMishi houses functions that I have written codes for in Common
+    Lisp language, either natively or translating them from OpenMusic
+    patches or Javascript codes. 
+    
+    Parallel to my work as a composer, OMishi is a work in progress; 
+    more will be added as the need arises.
 
 =======================================================================
 
-**Contents**
+    Contents
 
     OMishi
     - Attractors and Self-Similarity
@@ -65,9 +62,13 @@ more will be added as the need arises.
 
 =======================================================================
 
-**Version Info**
+    Version Info
 
-*Version 0.x = Pre-release Version (June 30 2024~)*
+    Version 0.x = Pre-release Version (June 30 2024~)
+
+    Version 0.8.1: July 26 2024
+    Revised:
+        - search-number-index
 
     Version 0.8: July 24 2024
     Reorganized the functions

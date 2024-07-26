@@ -5,7 +5,10 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;===============================================
 ; OMishi Functions: List Operations
+; As of July 26 2024
+; - search-number-index (revised)
 ; As of July 24 2024
+; - serach-number-index (renamed from 'find-duplicate-number')
 ; - euclid-distance (MOVED TO 'EUCLID')
 ; - euclid-distance-3d (MOVED TO 'EUCLID')
 ; As of July 19 2024
@@ -89,27 +92,43 @@ All -1s in the given list turn 0. I built this function for the purpose of using
 ;===============================================
 
 
-
-(om::defmethod! search-number-index ((list1 list) (num1 number))
- :initvals '('(1 3 5 4 1 3 2 1) 3 )
-  :indoc '("list of numbers" "number to search")
+(om::defmethod! search-number-index ((list1 list) (searchitem t))
+ :initvals '('(1 3 5 4 1 3 5 2 1) 3 )
+  :indoc '("list of numbers" "number to search OR list of numbers to search")
   :icon 5678645
   :doc "Search Number Index 
 
-(Yoshiaki Onishi, June 30, 2024, rev. July 24 2024)
+(Yoshiaki Onishi, June 30, 2024, rev. July 24 2024, July 26 2024)
 
 Formerly called 'find-duplicate-number'
 
-This function looks for a number within a given list, then gives the result in a list of 'nth' address.
+This function looks for a number OR a list of numbers within a given list, then gives the result in a list of 'nth' address.
 
-Example: (search-number-index '(1 3 5 4 1 3 2 1) 3) => (1 5)"
+If the second inlet has a list of numbers, then the result shows the 'nth' address(es) at which such a numerical sequence starts.
+
+Examples: 
+(search-number-index '(1 3 5 4 1 3 5 2 1) 3) => (1 5)
+(search-number-index '(1 3 5 4 1 3 5 2 1) '(1 3 5))) => (0 4)
+"
+
 (setq x 0)
-(loop for i in list1
-	if (equal i num1) 
-	collect x
-	and do (setq x (+ x 1))
-	else do (setq x (+ x 1)))
+(cond 	((numberp searchitem)
+		(loop for i in list1
+			if (equal i searchitem) 
+			collect x
+			and do (setq x (+ x 1))
+			else do (setq x (+ x 1))))
+		((listp searchitem) 
+		(loop for i from 0 to (- (length list1) 1)
+			if (equal (loop for ii from 0 to (- (length searchitem) 1) collect (nth (+ ii i) list1)) searchitem)
+			collect x
+			and do (setq x (+ x 1))
+			else do (setq x (+ x 1))
+		
+		))
 )
+)
+
 
 
 
