@@ -5,6 +5,8 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;===============================================
 ; OMishi Functions: Attractors and Self-Similarity Operations
+; As of July 29 2024
+; - clifford
 ; As of July 24 2024
 ;  - - - The followings have been moved from 'number generators'
 ; - dejong
@@ -201,9 +203,10 @@ For details, see: https://paulbourke.net/fractals/lorenz/
 ;===============================================
 
 (om::defmethod! mandelbrot-imager ((realnumberrange list) (imagnumberrange list) (iterationtestvalue number)) 
- :initvals '('(-1.75 0.5 0.005) '(-1 1 0.005) 30) 
+ :initvals '('(-1.75 0.5 0.01) '(-1 1 0.01) 30) 
   :indoc '("real number range (min max increment)" "imaginary number range (min max increment)" "iteration")
   :icon 2345312
+  :numouts 2
   :doc "mandelbrot-imager
 
 (Yoshiaki Onishi, July 16, 2024)
@@ -224,27 +227,24 @@ Best used with BPC object, this function is useful in identifying the value C fo
 
 See the example patch by selecting the function and pushing t."
 
-(setq   zvalue (complex 0 0)
-        realhalflist (arithm-ser (first realnumberrange) (second realnumberrange) (third realnumberrange))
-        imaghalflist (arithm-ser (first imagnumberrange) (second imagnumberrange) (third imagnumberrange))
-)
+(setq   zvalue (complex 0 0))
+(loop for (r i) in (loop for i from (first imagnumberrange) to (second imagnumberrange) by (third imagnumberrange)
+                        nconcing      (loop for r from (first realnumberrange) to (second realnumberrange) by (third realnumberrange)
+                                        if (eq (loop initially (setq zvalue (complex 0 0)) for y from 1 to iterationtestvalue
+                                                do (setq zvalue (+ (expt zvalue 2) (complex r i)))
+                                                until (or (> (abs (realpart zvalue)) 2)(> (abs (imagpart zvalue)) 2))
+                                                        if      (= y iterationtestvalue)
+                                                                do (return t)
 
-(remove nil 
-        (loop for i in imaghalflist
-                nconcing (loop for r in realhalflist
-                nconcing (loop initially (setq zvalue (complex 0 0)) for y from 1 to iterationtestvalue
-                            do (setq zvalue (+ (expt zvalue 2) (complex r i)))
-                            until (or (> (abs (realpart zvalue)) 2)(> (abs (imagpart zvalue)) 2))
-                            if (= y iterationtestvalue)
-                            collect (list r i)
+                                        ) t)
+                                collect (list r i)
+                                )
                         )
-            )
-        )
+collect r into x-list
+collect i into y-list
+finally (return (values x-list y-list))
 )
-
 )
-
-
 ;===============================================
 
 
@@ -319,6 +319,61 @@ Inlet 4 provides the option of output being a list of Complex Numbers, or a list
 )
 
 
+
+;===============================================
+(om::defmethod! clifford ((a number) (b number) (c number) (d number) (iter number) (initskip number))
+ :initvals '(-1.7 1.8 -1.9 -0.4 200 0)
+  :indoc '("value a" "value b" "value c" "value d" "number of iterations" "how many to skip initially")
+  :icon 2345312
+  :numouts 2
+  :doc "Clifford Attractors
+
+(Yoshiaki Onishi, July 29, 2024)
+
+clifford follows the principle of Clifford Attractors, which is similar to the Peter de Jong Attractors. Its equation is:
+
+xn+1 = sin(a yn) + c cos(a xn)
+yn+1 = sin(b xn) + d cos(b yn)
+
+First four inlets accept values a and d. 
+Fifth inlet accepts a value of iterations.
+Sixth inlet accepts a value of initial skip. When set to x>0, the function will have skipped x times before outputting the value.
+
+The function outputs a list of x values on the first outlet, then a list of y values on the second outlet.
+
+Click on the function and push t to see an example patch.
+
+For details, see: https://paulbourke.net/fractals/clifford/
+"
+(setq   x   0
+        y   0
+        newx    0
+        newy    0
+        )
+
+; the following is performed only when the initial skip value is more than 0
+(when (> initskip 0)
+(loop for i from 1 to initskip
+    do  (setq   newx   (+  (sin (* a y))    (* c (cos (* a x))))
+                newy   (+  (sin (* b x))    (* d (cos (* b y))))
+                x newx
+                y newy
+        )
+)
+)
+
+(setq finallist (loop for i from 1 to iter
+    do  (setq   newx   (+  (sin (* a y))    (* c (cos (* a x))))
+                newy   (+  (sin (* b x))    (* d (cos (* b y))))
+                x newx
+                y newy
+        )
+    collect newx into x-list
+    collect newy into y-list
+    finally (return (list x-list y-list))
+))
+(values (first finallist) (second finallist))
+)
 
 ;===============================================
 

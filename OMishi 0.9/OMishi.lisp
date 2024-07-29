@@ -44,7 +44,7 @@
 
 (om::fill-library 
  '(
-   ("attractors and self-similarity operations" Nil Nil (dejong dejong-svensson lorenz mandelbrot-imager mandelbrot-calc 1D-CELLULAR-AUTOMATA ) Nil)
+   ("attractors and self-similarity operations" Nil Nil (dejong dejong-svensson clifford lorenz mandelbrot-imager mandelbrot-calc 1D-CELLULAR-AUTOMATA ) Nil)
    ("euclid" Nil Nil (euclid-rhythm-binary euclid-distance euclid-distance-3d) Nil)
    ("number operations" Nil Nil (keep-within-value ) Nil)
    ("list operations" Nil Nil (bifurcate1 bifurcate2 converge1 converge2 fraction-maker 0to-1 -1to0 search-number-index 10->num num->10 chord-rotate zigzag-chordseqtrace listchomp) Nil)

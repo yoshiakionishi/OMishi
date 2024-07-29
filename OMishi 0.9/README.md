@@ -5,7 +5,7 @@
     A library of Common Lisp functions
     by Yoshiaki Onishi [[https://www.yoshionishi.com]]
 
-    Version 0.8
+    Version 0.9
 =======================================================================
 
     This program is free software. For information on usage 
@@ -32,7 +32,8 @@
     - Attractors and Self-Similarity
     - - - dejong 
     - - - dejong-svensson 
-    - - - lorenz 
+    - - - lorenz
+    - - - clifford 
     - - - mandelbrot-imager 
     - - - mandelbrot-calc 
     - - - 1D-CELLULAR-AUTOMATA
@@ -65,6 +66,10 @@
     Version Info
 
     Version 0.x = Pre-release Version (June 30 2024~)
+
+    Version 0.9: July 29 2024
+    Added:
+        - clifford
 
     Version 0.8.1: July 26 2024
     Revised:
