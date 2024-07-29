@@ -70,6 +70,8 @@
     Version 0.9: July 29 2024
     Added:
         - clifford
+    Revised:
+        - mandelbrot-imager
 
     Version 0.8.1: July 26 2024
     Revised:

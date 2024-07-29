@@ -209,7 +209,7 @@ For details, see: https://paulbourke.net/fractals/lorenz/
   :numouts 2
   :doc "mandelbrot-imager
 
-(Yoshiaki Onishi, July 16, 2024)
+(Yoshiaki Onishi, July 16, 2024, revised July 29 2024)
 
 This function evaluates whether or not the set of complex numbers Z(n) that starts with the fixed value C (range for real and imaginary numbers must be specified via the first two inlets) that are iterated by the Mandelbrot equation
 
@@ -244,7 +244,9 @@ collect r into x-list
 collect i into y-list
 finally (return (values x-list y-list))
 )
+
 )
+
 ;===============================================
 
 
