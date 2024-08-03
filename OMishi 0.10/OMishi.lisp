@@ -13,6 +13,8 @@
 ;   Version 0.7: (added beta version of listchomp)
 ;   Version 0.8: July 24-26 (revisions on some functions)
 ;   Version 0.8.1: July 26 (revised search-number-index)
+;   Version 0.9: ...
+;   Version 0.10: August 3 2024 (added collatz)
 ;===============================================
 ;   This program is free software. For information on usage 
 ;   and redistribution, see the "LICENSE" file in this distribution.
