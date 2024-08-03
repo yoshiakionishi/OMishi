@@ -5,7 +5,7 @@
     A library of Common Lisp functions
     by Yoshiaki Onishi [[https://www.yoshionishi.com]]
 
-    Version 0.9
+    Version 0.10
 =======================================================================
 
     This program is free software. For information on usage 
@@ -60,6 +60,7 @@
     - Number Generators
     - - - srn 
     - - - zigzag-arithm-ser 
+    - - - collatz
 
 =======================================================================
 
@@ -67,11 +68,13 @@
 
     Version 0.x = Pre-release Version (June 30 2024~)
 
+    Version 0.10: Augusst 3 2024
+    Added:
+        - collatz
+
     Version 0.9: July 29 2024
     Added:
         - clifford
-    Revised:
-        - mandelbrot-imager
 
     Version 0.8.1: July 26 2024
     Revised:

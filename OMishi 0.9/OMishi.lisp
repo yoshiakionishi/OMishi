@@ -48,7 +48,7 @@
    ("euclid" Nil Nil (euclid-rhythm-binary euclid-distance euclid-distance-3d) Nil)
    ("number operations" Nil Nil (keep-within-value ) Nil)
    ("list operations" Nil Nil (bifurcate1 bifurcate2 converge1 converge2 fraction-maker 0to-1 -1to0 search-number-index 10->num num->10 chord-rotate zigzag-chordseqtrace listchomp) Nil)
-   ("number generators" Nil Nil (srn zigzag-arithm-ser ) Nil)
+   ("number generators" Nil Nil (srn zigzag-arithm-ser collatz ) Nil)
    ))
 
 

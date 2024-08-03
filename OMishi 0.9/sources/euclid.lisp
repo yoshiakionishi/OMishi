@@ -9,8 +9,6 @@
 ; - euclid-rhythm-binary
 ; - euclid-distance
 ; - euclid-distance-3d
-
-
 ;===============================================
 
 

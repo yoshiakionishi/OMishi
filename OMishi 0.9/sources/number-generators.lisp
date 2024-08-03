@@ -5,6 +5,8 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;===============================================
 ; OMishi Functions: Number Generators
+; As of August 3 2024
+; - collatz
 ; As of July 24 2024
 ; - euclid-rhythm-binary (MOVED TO 'EUCLID')
 ; - dejong (MOVED TO 'ATTRACTORS-SELF-SIMILARITY')
@@ -71,8 +73,6 @@ This is a function proposed by Stefan Beyer in the spring of 2024. I built the o
 )
 
 ;===============================================
-
-
 (om::defmethod! zigzag-arithm-ser ((startnumber number) (listofstep list) (stepvalue-within-list number) (stepvalue-per-list number))
  :initvals '(0 '(2 3 4 3 2) 2 3)
   :indoc '("starting number of the arithmetic series" "list of length(s) of sub-series" "step amount within sub-series" "step amount of one sub-series to the next")
@@ -108,5 +108,44 @@ Building on the OM function 'arithm-ser,' This function creates an arithmetic se
                 )
   )
   )
+  
+)
+
+;===============================================
+(om::defmethod! collatz ((startnumber number))
+ :initvals '(9)
+  :indoc '("starting number of the Collatz Conjecture")
+  :icon 2345312
+  :doc "Collatz
+
+(Yoshiaki Onishi, August 3, 2024)
+
+This function generates a series of numbers according to the rules set forth by the Collatz Conjecture:
+
+- Starting with an arbitrary positive integer:
+- - - If the number is even, the number is divided by 2.
+- - - If the number is odd, the number is tripled, then 1 is added.
+
+The function stops when the number arrives at 1. 
+
+Example: 
+
+(collatz 9) => (9 28 14 7 22 11 34 17 52 26 13 40 20 10 5 16 8 4 2 1)
+"
+(if (and (startnumberp startnumber) (> startnumber 1))
+    (progn  (setq x startnumber) 
+            (loop 
+                until (= x 1)
+            if (oddp x)
+                collect x into path
+                and do (setq x (+ (* x 3) 1))
+            else 
+                collect x into path
+                and do (setq x (/ x 2))
+            finally (return (append path (cons 1 nil)))
+            )
+    )
+    (print "input must be a positive integer.")
+)
   
 )
