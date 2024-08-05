@@ -5,6 +5,11 @@
 ;   (c) 2024 by Yoshiaki Onishi.
 ;===============================================
 ; OMishi Functions: List Operations
+; As of August 5 2024
+; - converge1-repeat
+; - converge2-repeat
+; - bifurcate1-repeat
+; - bifurcate2-repeat
 ; As of July 26 2024
 ; - search-number-index (revised)
 ; As of July 24 2024
@@ -497,14 +502,108 @@ Example 2: (converge2 '(1 2 3 4 5 6 7 8 9)) ==>  (9 1 8 2 7 3 6 4 5)
                                         nconcing (list a b)
                                     )
                                 )
-
     )
+)
+)
 
-    
+;===============================================
+
+(om::defmethod! bifurcate1-repeat ((list1 list) (howmany number))
+ :initvals '('(1 2 3 4 5 6 7) 3)
+  :indoc '("list" "how many times?")
+  :icon 5678645
+  :doc "Bifurcate1-repeat 
+
+(Yoshiaki Onishi, August 5, 2024)
+
+bifurcate1-repeat takes a list and applies 'bifurcate1' recursively. 
+Use cdr to remove the first item, i.e. the original list.
+
+Example: (bifurcate1-repeat '(1 2 3 4 5 6 7) 3) 
+    ==> ((1 2 3 4 5 6 7) (4 5 3 6 2 7 1) (6 2 3 7 5 1 4) (7 5 3 1 2 4 6))
+
+"
+
+(setq listtoeval list1)
+(loop for n from 0 to howmany
+	collect listtoeval
+	do (setq listtoeval (bifurcate1 listtoeval))
+
+)
 )
 
 
+;===============================================
+(om::defmethod! bifurcate2-repeat ((list1 list) (howmany number))
+ :initvals '('(1 2 3 4 5 6 7) 3)
+  :indoc '("list" "how many times?")
+  :icon 5678645
+  :doc "Bifurcate2-repeat 
+
+(Yoshiaki Onishi, August 5, 2024)
+
+bifurcate1-repeat takes a list and applies 'bifurcate2' recursively. 
+Use cdr to remove the first item, i.e. the original list.
+
+Example: (bifurcate1-repeat '(1 2 3 4 5 6 7) 3) 
+    ==> ((1 2 3 4 5 6 7) (4 3 5 2 6 1 7) (2 5 6 3 1 4 7) (3 6 1 5 4 2 7))
+
+"
+(setq listtoeval list1)
+(loop for n from 0 to howmany
+	collect listtoeval
+	do (setq listtoeval (bifurcate2 listtoeval))
+
 )
+
+)
+;===============================================
+(om::defmethod! converge1-repeat ((list1 list) (howmany number))
+ :initvals '('(1 2 3 4 5 6 7) 3)
+  :indoc '("list" "how many times?")
+  :icon 5678645
+  :doc "Converge1-repeat 
+
+(Yoshiaki Onishi, August 5, 2024)
+
+converge1-repeat takes a list and applies 'converge1' recursively. 
+Use cdr to remove the first item, i.e. the original list.
+
+Example: (converge1-repeat '(1 2 3 4 5 6 7) 3) 
+    ==> ((1 2 3 4 5 6 7) (1 7 2 6 3 5 4) (1 4 7 5 2 3 6) (1 6 4 3 7 2 5))
+
+"
+(setq listtoeval list1)
+(loop for n from 0 to howmany
+	collect listtoeval
+	do (setq listtoeval (converge1 listtoeval))
+
+)
+)
+
+;===============================================
+(om::defmethod! converge2-repeat ((list1 list) (howmany number))
+ :initvals '('(1 2 3 4 5 6 7) 3)
+  :indoc '("list" "how many times?")
+  :icon 5678645
+  :doc "Converge2-repeat 
+
+(Yoshiaki Onishi, August 5, 2024)
+
+converge2-repeat takes a list and applies 'converge2' recursively. 
+Use cdr to remove the first item, i.e. the original list.
+
+Example: (converge2-repeat '(1 2 3 4 5 6 7) 3) 
+    ==> ((1 2 3 4 5 6 7) (7 1 6 2 5 3 4) (4 7 3 1 5 6 2) (2 4 6 7 5 3 1))
+"
+(setq listtoeval list1)
+(loop for n from 0 to howmany
+	collect listtoeval
+	do (setq listtoeval (converge2 listtoeval))
+
+)
+)
+
 
 ;===============================================
 

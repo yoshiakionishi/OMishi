@@ -15,6 +15,7 @@
 ;   Version 0.8.1: July 26 (revised search-number-index)
 ;   Version 0.9: ...
 ;   Version 0.10: August 3 2024 (added collatz)
+;   Version 0.11: August 5 2024 (added four functions in List Operations)
 ;===============================================
 ;   This program is free software. For information on usage 
 ;   and redistribution, see the "LICENSE" file in this distribution.
@@ -49,7 +50,7 @@
    ("attractors and self-similarity operations" Nil Nil (dejong dejong-svensson clifford lorenz mandelbrot-imager mandelbrot-calc 1D-CELLULAR-AUTOMATA ) Nil)
    ("euclid" Nil Nil (euclid-rhythm-binary euclid-distance euclid-distance-3d) Nil)
    ("number operations" Nil Nil (keep-within-value ) Nil)
-   ("list operations" Nil Nil (bifurcate1 bifurcate2 converge1 converge2 fraction-maker 0to-1 -1to0 search-number-index 10->num num->10 chord-rotate zigzag-chordseqtrace listchomp) Nil)
+   ("list operations" Nil Nil (bifurcate1 bifurcate2 converge1 converge2 bifurcate1-repeat bifurcate2-repeat converge1-repeat converge2-repeat fraction-maker 0to-1 -1to0 search-number-index 10->num num->10 chord-rotate zigzag-chordseqtrace listchomp) Nil)
    ("number generators" Nil Nil (srn zigzag-arithm-ser collatz ) Nil)
    ))
 

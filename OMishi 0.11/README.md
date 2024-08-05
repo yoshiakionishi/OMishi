@@ -5,7 +5,7 @@
     A library of Common Lisp functions
     by Yoshiaki Onishi [[https://www.yoshionishi.com]]
 
-    Version 0.10
+    Version 0.11
 =======================================================================
 
     This program is free software. For information on usage 
@@ -48,6 +48,10 @@
     - - - bifurcate2 
     - - - converge1 
     - - - converge2 
+    - - - converge1-repeat
+    - - - converge2-repeat
+    - - - bifurcate1-repeat
+    - - - bifurcate2-repeat
     - - - fraction-maker 
     - - - 0to-1 
     - - - -1to0 
@@ -68,7 +72,14 @@
 
     Version 0.x = Pre-release Version (June 30 2024~)
 
-    Version 0.10: Augusst 3 2024
+    Version 0.11: August 5 2024
+    Added:
+        - converge1-repeat
+        - converge2-repeat
+        - bifurcate1-repeat
+        - bifurcate2-repeat    
+
+    Version 0.10: August 3 2024
     Added:
         - collatz
 
