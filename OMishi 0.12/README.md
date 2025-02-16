@@ -5,7 +5,7 @@
     A library of Common Lisp functions
     by Yoshiaki Onishi [[https://www.yoshionishi.com]]
 
-    Version 0.11
+    Version 0.12
 =======================================================================
 
     This program is free software. For information on usage 
@@ -59,7 +59,8 @@
     - - - 10->num 
     - - - num->10 
     - - - chord-rotate 
-    - - - zigzag-chordseqtrace 
+    - - - zigzag-chordseqtrace
+    - - - zigzag-chordseqtrace-v2 
     - - - listchomp
     - Number Generators
     - - - srn 
@@ -71,7 +72,10 @@
     Version Info
 
     Version 0.x = Pre-release Version (June 30 2024~)
-
+    
+    version 0.12: February 16 2025
+    Added:
+        - zigzag-chordseqtrace-v2
     Version 0.11: August 5 2024
     Added:
         - converge1-repeat
