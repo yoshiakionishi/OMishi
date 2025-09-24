@@ -5,7 +5,7 @@
     A library of Common Lisp functions
     by Yoshiaki Onishi [[https://www.yoshionishi.com]]
 
-    Version 0.11
+    Version 0.13
 =======================================================================
 
     This program is free software. For information on usage 
