@@ -1,0 +1,104 @@
+<html>
+<head><title>SRN - OMishi Reference Documentation</title>
+<STYLE TYPE="text/css"><!--  
+
+BODY {background-color: #EEEEEE;
+	  font-family: Verdana;
+font-size: 12;
+color : #0000000;
+}
+
+A:link {text-decoration: underline; color : 333366;}
+A:visited {text-decoration: underline; color : 333366;}
+A:active {Verdana; text-decoration: underline; color:333366;}
+A:hover {Verdana; text-decoration: underline; color: 333366;}
+
+H1 {
+ color : #333333;
+ font-size: 18;
+ font-weight: bold
+ text-align: left;
+}
+	
+H2 {
+ color : #333333;
+ font-size: 16;
+ font-weight: bold;
+}
+
+H3 {
+ color : #444444;
+ font-size: 12;
+ font-weight: bold;
+}
+
+P,UL,LI, TD {	
+ font-size: 11;
+ text-indent: 0cm;
+ text-align: justify;
+}
+.right {text-align: right ;}
+.center {text-align: center ;}
+.top {text-align: top ;}
+   --></style>
+</head>
+<body bgcolor=BBBBBB>
+<br>
+<table align=center bgcolor=FFFFFF width=87%><tr>
+<td>
+<h2>SRN</h2>
+<font size=-1>[GENERIC-FUNCTION]</font><br><br>
+</td><td width=130>
+<img src=./omlogo.gif width=100><br>
+<font size=-2 align=right><a href=index.html>OMishi<br> Function Reference</a></font>
+</td></tr>
+<tr><td colspan=2>
+<font color=882222><b>ARGUMENTS:</b></font><br>
+<table width=100% border=0>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>firstcondition</b></font>
+</td>
+<td>How many random numbers to generate?</td>
+<td>[default = 20]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>secondcondition</b></font>
+</td>
+<td>Minimum value</td>
+<td>[default = 1]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>thirdcondition</b></font>
+</td>
+<td>Maximum value</td>
+<td>[default = 5]</td>
+</tr>
+<tr>
+</table>
+</tr>
+<tr><td colspan=2>
+<br><font color=882222><b>Description:</b></font><p>
+SRN: Stefan's Random Numbers<br>
+<br>
+(Yoshiaki Onishi, June 30, 2024)<br>
+<br>
+SRN generates a series of random numbers with one constraint: once a number appears, it cannot reappear for at least 2 iterations. That is:<br>
+<br>
+BAD: 3 3 9 8 5 . . . = 3 is immediately followed by another 3. <br>
+BAD: 3 7 3 8 9 . . . = 3 reappears with one non-3 number in between.<br>
+GOOD: 3 7 9 3 1 . .  . = Between the two 3s there are two numbers. <br>
+<br>
+This is a function proposed by Stefan Beyer in the spring of 2024. I built the original code on Javascript for Max, then I rewrote it in Common Lisp to include in the OMishi Library.<br>
+</p><br><br></td></tr>
+<td class=center colspan=2>
+<center><font size=-2>Auto doc generation by OpenMusic 7.6 &copy 2025 IRCAM</font></center>
+</td></tr></table>
+</body></html>

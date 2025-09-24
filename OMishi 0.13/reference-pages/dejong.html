@@ -1,0 +1,139 @@
+<html>
+<head><title>DEJONG - OMishi Reference Documentation</title>
+<STYLE TYPE="text/css"><!--  
+
+BODY {background-color: #EEEEEE;
+	  font-family: Verdana;
+font-size: 12;
+color : #0000000;
+}
+
+A:link {text-decoration: underline; color : 333366;}
+A:visited {text-decoration: underline; color : 333366;}
+A:active {Verdana; text-decoration: underline; color:333366;}
+A:hover {Verdana; text-decoration: underline; color: 333366;}
+
+H1 {
+ color : #333333;
+ font-size: 18;
+ font-weight: bold
+ text-align: left;
+}
+	
+H2 {
+ color : #333333;
+ font-size: 16;
+ font-weight: bold;
+}
+
+H3 {
+ color : #444444;
+ font-size: 12;
+ font-weight: bold;
+}
+
+P,UL,LI, TD {	
+ font-size: 11;
+ text-indent: 0cm;
+ text-align: justify;
+}
+.right {text-align: right ;}
+.center {text-align: center ;}
+.top {text-align: top ;}
+   --></style>
+</head>
+<body bgcolor=BBBBBB>
+<br>
+<table align=center bgcolor=FFFFFF width=87%><tr>
+<td>
+<h2>DEJONG</h2>
+<font size=-1>[GENERIC-FUNCTION]</font><br><br>
+</td><td width=130>
+<img src=./omlogo.gif width=100><br>
+<font size=-2 align=right><a href=index.html>OMishi<br> Function Reference</a></font>
+</td></tr>
+<tr><td colspan=2>
+<font color=882222><b>ARGUMENTS:</b></font><br>
+<table width=100% border=0>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>a</b></font>
+</td>
+<td>value a</td>
+<td>[default = 1.641]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>b</b></font>
+</td>
+<td>value b</td>
+<td>[default = 1.902]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>c</b></font>
+</td>
+<td>value c</td>
+<td>[default = 0.316]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>d</b></font>
+</td>
+<td>value d</td>
+<td>[default = 1.525]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>iter</b></font>
+</td>
+<td>number of iterations</td>
+<td>[default = 100]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>initskip</b></font>
+</td>
+<td>how many to skip initially</td>
+<td>[default = 0]</td>
+</tr>
+<tr>
+</table>
+</tr>
+<tr><td colspan=2>
+<br><font color=882222><b>Description:</b></font><p>
+Peter de Jong Attractor<br>
+<br>
+(Yoshiaki Onishi, July 6, 2024; revised July 22, 2024)<br>
+<br>
+dejong follows the principle of the Peter de Jong Attractor. Its equation is:<br>
+<br>
+xn+1 = sin(a yn) - cos(b xn)<br>
+yn+1 = sin(c xn) - cos(d yn)<br>
+<br>
+First four inlets accept values a through d. <br>
+Fifth inlet accepts a value of iterations.<br>
+Sixth inlet accepts a value of initial skip. When set to x&gt;0, the function will have skipped x times before outputting the value.<br>
+<br>
+The function outputs a list of x values on the first outlet, then a list of y values on the second outlet.<br>
+<br>
+Click on the function and push t to see an example patch.<br>
+<br>
+For details, see: https://paulbourke.net/fractals/peterdejong/<br>
+<br>
+</p><br><br></td></tr>
+<td class=center colspan=2>
+<center><font size=-2>Auto doc generation by OpenMusic 7.6 &copy 2025 IRCAM</font></center>
+</td></tr></table>
+</body></html>

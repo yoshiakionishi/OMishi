@@ -1,0 +1,123 @@
+<html>
+<head><title>CHORD-ROTATE - OMishi Reference Documentation</title>
+<STYLE TYPE="text/css"><!--  
+
+BODY {background-color: #EEEEEE;
+	  font-family: Verdana;
+font-size: 12;
+color : #0000000;
+}
+
+A:link {text-decoration: underline; color : 333366;}
+A:visited {text-decoration: underline; color : 333366;}
+A:active {Verdana; text-decoration: underline; color:333366;}
+A:hover {Verdana; text-decoration: underline; color: 333366;}
+
+H1 {
+ color : #333333;
+ font-size: 18;
+ font-weight: bold
+ text-align: left;
+}
+	
+H2 {
+ color : #333333;
+ font-size: 16;
+ font-weight: bold;
+}
+
+H3 {
+ color : #444444;
+ font-size: 12;
+ font-weight: bold;
+}
+
+P,UL,LI, TD {	
+ font-size: 11;
+ text-indent: 0cm;
+ text-align: justify;
+}
+.right {text-align: right ;}
+.center {text-align: center ;}
+.top {text-align: top ;}
+   --></style>
+</head>
+<body bgcolor=BBBBBB>
+<br>
+<table align=center bgcolor=FFFFFF width=87%><tr>
+<td>
+<h2>CHORD-ROTATE</h2>
+<font size=-1>[GENERIC-FUNCTION]</font><br><br>
+</td><td width=130>
+<img src=./omlogo.gif width=100><br>
+<font size=-2 align=right><a href=index.html>OMishi<br> Function Reference</a></font>
+</td></tr>
+<tr><td colspan=2>
+<font color=882222><b>ARGUMENTS:</b></font><br>
+<table width=100% border=0>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>list1</b></font>
+</td>
+<td>chord (list of midicents)</td>
+<td>[default = (quote (6000 6400 6700 7100))]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>approx</b></font>
+</td>
+<td>1/x tone approximation</td>
+<td>[default = 2]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>mode</b></font>
+</td>
+<td>keep/take out the bass pedal note</td>
+<td>[default = (quote keepbassnote)]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>octeq</b></font>
+</td>
+<td>midicent multiple</td>
+<td>[default = 0]</td>
+</tr>
+<tr>
+</table>
+</tr>
+<tr><td colspan=2>
+<br><font color=882222><b>Description:</b></font><p>
+Chord Rotate <br>
+<br>
+(Yoshiaki Onishi, July 7, 2024)<br>
+<br>
+Input 1: list of midicents (a chord)<br>
+Input 2: tone division (2 = halfstep; 4 = 1/4 step; 8 = 1/8 step)<br>
+Input 3: Two modes: Keep or take out the bass note from the resultant chords in the chord-seq.<br>
+Input 4: Midicent multiple value for the virtual pitch. By default, 0, an octave multiple (1200) of the lowest pitch just above the highest pitch of the chord is applied. You can change this value to other midicent values. For example, 1000 would find a virtual pitch closest to the highest pitch of the original chord at minor 7th starting from the lowest pitch.<br>
+<br>
+chord-rotate takes a chord, analyzes its interval structure (including the interval between the highest pitch plus a *virtual* pitch, an octave multiple of the lowest pitch just above the highest pitch of the input chord), derives all possible rotations of the interval structure, then applies them upon the lowest pitch of the original chord, deriving rotated chords. <br>
+<br>
+You have the option to remove the lowest note (akin to pedal note) from the resultant chord-seq.<br>
+<br>
+It handles smaller tone divisions than a half step, as well, but you need to specify which tone division you are using via Inlet 2.<br>
+<br>
+This function was formerly named *perm-interval-2*, which created all the possible inversions of the original chord then transposed them down so that the lowest pitch of each chord is the same as that of the original chord. Though the procedure may be different, the result was identical. For chord-rotate, two additional functions were added. (1) Option to remove the lowest pitch which functions like a pedal tone. (2) Option to set the *virtual pitch* differently, where the multiple of midicent can be set to something other than an octave (1200).<br>
+<br>
+Click on the function and push t to see an example patch.<br>
+<br>
+For details, especially on *perm-interval-2*, please refer to: Onishi, Yoshiaki. *Between Imagination and Realization: Composers and Metaphysical Spaces.* D.M.A. Doctoral Dissertation, Columbia University, 2015. http://dx.doi.org/10.7916/D8CJ8CCG. Pages 167-169.<br>
+<br>
+</p><br><br></td></tr>
+<td class=center colspan=2>
+<center><font size=-2>Auto doc generation by OpenMusic 7.6 &copy 2025 IRCAM</font></center>
+</td></tr></table>
+</body></html>
