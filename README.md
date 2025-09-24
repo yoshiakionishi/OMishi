@@ -26,12 +26,14 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 
 2.  Once you download it, defrost the zip file. 
 
-3.  Within the folder "OMishi-main," move the folder 
-    "OMishi {version number}" to the OM libraries folder 
+3.  Within the folder "OMishi-main," there are OMishi folders
+    multiple versions, as in: "OMishi {version number}".
+    Move the folder with the most recent (highest) version
+    to your OM libraries folder 
     (for Mac users, the default folder would be  
     /Users/{yourcomputername}/OM/Libraries
     You can also specify additional folder(s) from 
-    OM Preferences later)
+    OM Preferences later).
 
 4.  Run OpenMusic. In Preferences => Libraries, under the 
     "Auto Load" list of libraries, OMishi should already appear
@@ -43,7 +45,8 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 
 6.  For some functions, I have provided example patches. 
     Invoke, for example, the function "euclid-rhythm-binary", 
-    click it, and type t to see the patch.
+    click it, and type t to see the patch. More examples are being
+    added in each new version...
 
 
 =======================================================================
