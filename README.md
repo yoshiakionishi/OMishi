@@ -1,19 +1,18 @@
 # OMishi
-=======================================================================
-
+==========================
 **OMishi**
 
 A library of Common Lisp functions for OpenMusic
 
 by Yoshiaki Onishi (https://www.yoshionishi.com)
 
-=======================================================================
+==========================
 
 This program is free software. For information on usage and redistribution, see the "LICENSE" file in this distribution.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
 
-=======================================================================
+==========================
 
 **How to use OMishi in OpenMusic**
 
@@ -34,6 +33,6 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 7.  For some functions, I have provided example patches. Invoke, for example, the function "euclid-rhythm-binary", click it, and type t to see the patch. More examples are being added in each new version...
 
 
-=======================================================================
+==========================
 
 [[Download ZIP file](https://github.com/yoshiakionishi/OMishi/archive/refs/heads/main.zip)]
