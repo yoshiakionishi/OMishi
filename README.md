@@ -40,7 +40,6 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
     the Preferences.
 
 5.  You should now be able to use OMishi in your patches.
-=======================================================================
 
 6.  For some functions, I have provided example patches. 
     Invoke, for example, the function "euclid-rhythm-binary", 
