@@ -1,0 +1,178 @@
+<html>
+<head><title>VOICE-INTERPOLATOR - OMishi Reference Documentation</title>
+<STYLE TYPE="text/css"><!--  
+
+BODY {background-color: #EEEEEE;
+	  font-family: Verdana;
+font-size: 12;
+color : #0000000;
+}
+
+A:link {text-decoration: underline; color : 333366;}
+A:visited {text-decoration: underline; color : 333366;}
+A:active {Verdana; text-decoration: underline; color:333366;}
+A:hover {Verdana; text-decoration: underline; color: 333366;}
+
+H1 {
+ color : #333333;
+ font-size: 18;
+ font-weight: bold
+ text-align: left;
+}
+	
+H2 {
+ color : #333333;
+ font-size: 16;
+ font-weight: bold;
+}
+
+H3 {
+ color : #444444;
+ font-size: 12;
+ font-weight: bold;
+}
+
+P,UL,LI, TD {	
+ font-size: 11;
+ text-indent: 0cm;
+ text-align: justify;
+}
+.right {text-align: right ;}
+.center {text-align: center ;}
+.top {text-align: top ;}
+   --></style>
+</head>
+<body bgcolor=BBBBBB>
+<br>
+<table align=center bgcolor=FFFFFF width=87%><tr>
+<td>
+<h2>VOICE-INTERPOLATOR</h2>
+<font size=-1>[GENERIC-FUNCTION]</font><br><br>
+</td><td width=130>
+<img src=./omlogo.gif width=100><br>
+<font size=-2 align=right><a href=index.html>OMishi<br> Function Reference</a></font>
+</td></tr>
+<tr><td colspan=2>
+<font color=882222><b>ARGUMENTS:</b></font><br>
+<table width=100% border=0>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>originvoice</b></font>
+</td>
+<td>voice object with notes with which the interpolation begins (NB: number of notes must match between the beginning and ending Voice objects)</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>arrivalvoice</b></font>
+</td>
+<td>voice object with notes with which the interpolation ends (NB: number of notes must match between the beginning and ending Voice objects)</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>order</b></font>
+</td>
+<td>path of interpolation. Given the first note is index number 0, create list of lists denoting the connection of interpolation path from the beginning Voice object to the ending Voice object</td>
+<td>[default = (quote ((0 0) (1 1) (2 2)))]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>numsteps</b></font>
+</td>
+<td>number of steps</td>
+<td>[default = 10]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>curve</b></font>
+</td>
+<td>curve value</td>
+<td>[default = 0.0]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>tempo</b></font>
+</td>
+<td>tempo</td>
+<td>[default = 60]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>timesig</b></font>
+</td>
+<td>time signature</td>
+<td>[default = (quote (4 4))]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>maxsub</b></font>
+</td>
+<td>maximum subdivision</td>
+<td>[default = 8]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>forbid</b></font>
+</td>
+<td>list of forbidden subdivisions</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>offset</b></font>
+</td>
+<td>offset, gracenotes?</td>
+<td>[default = 0.0]</td>
+</tr>
+<tr>
+<tr>
+<td width=40>&nbsp;</td>
+<td>
+- <font color=333366><b>precis</b></font>
+</td>
+<td>precision 0 to 1.0</td>
+<td>[default = 0.5]</td>
+</tr>
+<tr>
+</table>
+</tr>
+<tr><td colspan=2>
+<br><font color=882222><b>Description:</b></font><p>
+voice-interpolator<br>
+<br>
+(Yoshiaki Onishi, April 13, 2026)<br>
+<br>
+This object interpolates, both pitches and rhythms, between two VOICE objects. <br>
+<br>
+Notes:<br>
+<br>
+0. Important: because of the way OMQUANTIFY handles the quantization process, Any 'rest' at the beginning of the sequence, including departing and arriving voice, will be omitted so that the music begins on the downbeat of each bar. In the earlier version of this patch, the initial rests were retained, but it would produce incorrect, additional notes toward the end of the sequence.<br>
+1. Both VOICE objects must have the same number of notes. <br>
+2. It can accept dyads and chords. However, such dyads and chords that are being interpolated must have the identical list length. Thus, if a dyad is interpolated, it must be interpolated into a dyad. If the number of notes in the departure and arrival varies, it is important to modify the list so that the length of the list matches. (6000 6500 7200) ==&gt; (3800 5000 5000) <br>
+3. There are two outlets. The one on the left connects to right inlet of MULTI-SEQ. The one on the right connects to the right inlet of POLY, or using CONCAT-SCORE-OBJS, you can connect to the 'self' inlet of VOICE.<br>
+<br>
+</p><br><br></td></tr>
+<td class=center colspan=2>
+<center><font size=-2>Auto doc generation by OpenMusic 8.0 &copy 2026 IRCAM</font></center>
+</td></tr></table>
+</body></html>
